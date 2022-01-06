@@ -1,8 +1,11 @@
-import * as React from 'react';
 import './App.css';
+import { Box } from '@mui/system';
 import SideNav from '../SideNav/SideNav';
 import Library from '../Library/Library';
-import Playlist from '../Playlist.js/Playlist';
+import Playlist from '../Playlist/Playlist';
+import Login from '../Login/Login';
+import MobileNav from '../MobileNav/MobileNav';
+import Player from '../Player/Player';
 
 function App() {
 	const mockData = [
@@ -63,13 +66,19 @@ function App() {
 			duration: 180
 		}
 	];
-	return (
+		return (
 		<div className="App">
-			<SideNav playlists={mockData} />
-			<Library playlists={mockData} />
-			<Playlist name={'Rock from the 90s'} image="./Pics/Album-cover2.png" songs={songs} />
+			<Box sx={{ paddingBottom: { xs: '146px', md: '90px' } }}>
+				{/* <Login /> */}
+				<SideNav playlists={mockData} />
+				<Library playlists={mockData} />
+				<Playlist name={'Rock from the 90s'} image="/Justin-Bieber.png" songs={songs} />
+			</Box>
+			<Player image={'/Justin-Bieber.png'} title={'Peaches'} artist={'Justin Bieber'} />
+			<MobileNav />
 		</div>
 	);
 }
 
 export default App;
+

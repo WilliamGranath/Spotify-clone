@@ -30,7 +30,7 @@ function SideNav({ playlists }) {
 				width: 240
 			}}
 		>
-			<img style={{ marginLeft: 16, marginTop: 24 }} src="./Pics/Spotify_Logo.png" width={130} />
+			<img style={{ marginLeft: 16, marginTop: 24 }} src="/Spotify_Logo.png" width={130} />
 			<Box sx={{ width: '100%', maxWidth: 360, color: 'white' }}>
 				<List>
 					<ListItem disablePadding>
@@ -50,7 +50,7 @@ function SideNav({ playlists }) {
 						</ListItemButton>
 					</ListItem>
 				</List>
-				<Divider sx={{ bgcolor: 'white' }} variant="middle" />
+				<Divider sx={{ color: 'white', bgcolor: 'white' }} variant="middle" />
 				<List>{renderPlaylists()}</List>
 			</Box>
 		</Box>

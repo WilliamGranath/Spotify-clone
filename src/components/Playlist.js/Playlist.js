@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import SongRow from '../SongRow.js/SongRow';
+import SongRow from '../SongRow/SongRow';
 
 const Playlist = ({ name, image, songs }) => {
 	// const { playlistId } = useParams();
@@ -44,7 +44,7 @@ const Playlist = ({ name, image, songs }) => {
 					lg={10}
 					sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}
 				>
-					<Typography variant="subtitle1" sx={{ color: 'text.primary', mb: 6 }}>
+					<Typography variant="subtitle1" sx={{ color: 'text.primary', mb: 2 }}>
 						Playlist
 					</Typography>
 					<Typography variant="h1" sx={{ color: 'text.primary' }}>
@@ -61,14 +61,20 @@ const Playlist = ({ name, image, songs }) => {
 				</Grid>
 				<Grid sm={12}>
 					<TableContainer>
-						<Table>
+						<Table size="small" padding="none">
 							<TableHead>
 								<TableRow>
 									<TableCell>#</TableCell>
 									<TableCell>Title</TableCell>
-									<TableCell align="right">Album</TableCell>
-									<TableCell align="right">Added Date</TableCell>
-									<TableCell align="right">Duration</TableCell>
+									<TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }} align="right">
+										Album
+									</TableCell>
+									<TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }} align="right">
+										Added Date
+									</TableCell>
+									<TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }} align="right">
+										Duration
+									</TableCell>
 								</TableRow>
 							</TableHead>
 							<TableBody>{renderSongRows()}</TableBody>
@@ -80,5 +86,3 @@ const Playlist = ({ name, image, songs }) => {
 	);
 };
 export default Playlist;
-
-<TableCell align="right">Duration</TableCell>;
