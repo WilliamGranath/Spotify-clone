@@ -66,7 +66,7 @@ function App() {
 			duration: 180
 		}
 	];
-		return (
+	return (
 		<div className="App">
 			<Box sx={{ paddingBottom: { xs: '146px', md: '90px' } }}>
 				{/* <Login /> */}
@@ -74,11 +74,10 @@ function App() {
 				<Library playlists={mockData} />
 				<Playlist name={'Rock from the 90s'} image="/Justin-Bieber.png" songs={songs} />
 			</Box>
-			<Player image={'/Justin-Bieber.png'} title={'Peaches'} artist={'Justin Bieber'} />
+			<Player image={'./Pics/Country.jpg'} title={'Peaches'} artist={'Justin Bieber'} />
 			<MobileNav />
 		</div>
 	);
 }
 
 export default App;
-
