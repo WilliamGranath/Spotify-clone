@@ -72,7 +72,7 @@ function App() {
 				{/* <Login /> */}
 				<SideNav playlists={mockData} />
 				<Library playlists={mockData} />
-				<Playlist name={'Rock from the 90s'} image="/Justin-Bieber.png" songs={songs} />
+				<Playlist name={'Rock from the 90s'} image="./Pics/Playlist-pic.jpg" songs={songs} />
 			</Box>
 			<Player image={'./Pics/Country.jpg'} title={'Peaches'} artist={'Justin Bieber'} />
 			<MobileNav />
