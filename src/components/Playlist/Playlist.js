@@ -14,8 +14,18 @@ import { useParams } from 'react-router-dom';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SongRow from '../SongRow/SongRow';
 
-const Playlist = ({ name, image, songs }) => {
-	// const { playlistId } = useParams();
+const mockSongs = [
+	{ image: '/Pics/pop.jfif', title: 'Holy', artist: 'Justin Bieber', album: 'No clue', duration: 180 },
+	{ image: '/Pics/pop.jfif', title: 'Holy', artist: 'Justin Bieber', album: 'No clue', duration: 154 },
+	{ image: '/Pics/pop.jfif', title: 'Holy', artist: 'Justin Bieber', album: 'No clue', duration: 180 },
+	{ image: '/Pics/pop.jfif', title: 'Holy', artist: 'Justin Bieber', album: 'No clue', duration: 124 },
+	{ image: '/Pics/pop.jfif', title: 'Holy', artist: 'Justin Bieber', album: 'No clue', duration: 180 },
+	{ image: '/Pics/pop.jfif', title: 'Holy', artist: 'Justin Bieber', album: 'No clue', duration: 180 }
+];
+
+const Playlist = ({ name = 'artist', image = '/Pics/pop.jfif', songs = mockSongs }) => {
+	const { playlistId } = useParams();
+	console.log(playlistId);
 
 	// api som använder playlistId
 
@@ -53,13 +63,13 @@ const Playlist = ({ name, image, songs }) => {
 				</Grid>
 			</Grid>
 			{/* Song list */}
-			<Grid container spacing={2}>
+			<Grid container spacing={2} sx={{ flexDirection: 'column' }}>
 				<Grid item sm={12} lg={2}>
 					<Fab color="primary" aria-label="add">
 						<PlayArrowIcon sx={{ color: 'text.primary' }} fontSize="large" />
 					</Fab>
 				</Grid>
-				<Grid sm={12}>
+				<Grid item sm={12}>
 					<TableContainer>
 						<Table size="small" padding="none">
 							<TableHead>
