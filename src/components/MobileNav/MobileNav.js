@@ -19,11 +19,11 @@ const MobileNav = () => {
 					setValue(newValue);
 				}}
 			>
-				<BottomNavigationAction component={Link} to={'/'} value={'home'} label="Home" icon={<HomeIcon />} />
+				<BottomNavigationAction component={Link} to={'/'} value="home" label="Home" icon={<HomeIcon />} />
 				<BottomNavigationAction
 					component={Link}
 					to={'/search'}
-					value={'search'}
+					value="seach"
 					label="Search"
 					icon={<SearchIcon />}
 				/>
@@ -31,7 +31,6 @@ const MobileNav = () => {
 					component={Link}
 					to={'/playlist'}
 					value="playlist"
-					label="Library"
 					label="Library"
 					icon={<ListIcon />}
 				/>
