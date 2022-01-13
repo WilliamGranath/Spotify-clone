@@ -15,16 +15,16 @@ import { useParams } from 'react-router-dom';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SongRow from '../SongRow/SongRow';
 
-const mockSongs = [
+/* const mockSongs = [
 	{ image: '/Justin-Bieber.png', title: 'Holy', artist: 'Justin Bieber', album: 'No clue', duration: 180 },
 	{ image: '/Justin-Bieber.png', title: 'Holy', artist: 'Justin Bieber', album: 'No clue', duration: 154 },
 	{ image: '/Justin-Bieber.png', title: 'Holy', artist: 'Justin Bieber', album: 'No clue', duration: 180 },
 	{ image: '/Justin-Bieber.png', title: 'Holy', artist: 'Justin Bieber', album: 'No clue', duration: 124 },
 	{ image: '/Justin-Bieber.png', title: 'Holy', artist: 'Justin Bieber', album: 'No clue', duration: 180 },
 	{ image: '/Justin-Bieber.png', title: 'Holy', artist: 'Justin Bieber', album: 'No clue', duration: 180 }
-];
+]; */
 
-const Playlist = ({ spotifyApi, name = 'Justin Bieber', image = '/Justin-Bieber.png' }) => {
+const Playlist = ({ spotifyApi }) => {
 	const { playlistId } = useParams();
 	const [playlistInfo, setPlaylistInfo] = useState();
 	const [songs, setSongs] = useState([]);
