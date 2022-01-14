@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Box } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import SpotifyWebApi from 'spotify-web-api-node';
 import { connect } from 'react-redux';
 import { ROUTES } from '../routes/routes';
@@ -8,11 +8,11 @@ import SideNav from './SideNav/SideNav';
 import MobileNav from './MobileNav/MobileNav';
 import Player from './Player/Player';
 import Login from './Login/Login';
-import { fetchUser, fetchPlaylist } from '../reduxStore/actions/index';
+import { fetchUser, fetchPlaylist, addDeviceId } from '../reduxStore/actions/index';
 
 const spotifyApi = new SpotifyWebApi();
 
-const setupSpotifyConnect = (token, setDeviceId) => {
+const setupSpotifyConnect = (token, addDeviceId) => {
 	const player = new window.Spotify.Player({
 		name: 'Web Playback SDK Quick Start Player',
 		getOAuthToken: (cb) => {
@@ -24,8 +24,7 @@ const setupSpotifyConnect = (token, setDeviceId) => {
 	// Ready
 	player.addListener('ready', ({ device_id }) => {
 		console.log('Ready with Device ID', device_id);
-		setDeviceId(device_id);
-
+		addDeviceId(device_id);
 		spotifyApi.transferMyPlayback([device_id]);
 	});
 
@@ -49,15 +48,13 @@ const setupSpotifyConnect = (token, setDeviceId) => {
 	player.connect();
 };
 
-const ScreenRoot = ({ token, playlists, fetchUser, fetchPlaylist }) => {
-	const [deviceId, setDeviceId] = useState();
-
+const ScreenRoot = ({ token, fetchUser, fetchPlaylist, addDeviceId }) => {
 	useEffect(() => {
 		// Set up spotify:
 		spotifyApi.setAccessToken(token);
 
 		window.onSpotifyWebPlaybackSDKReady = () => {
-			setupSpotifyConnect(token, setDeviceId);
+			setupSpotifyConnect(token, addDeviceId);
 		};
 
 		const getData = async () => {
@@ -85,13 +82,7 @@ const ScreenRoot = ({ token, playlists, fetchUser, fetchPlaylist }) => {
 				</Switch>
 				<SideNav />
 			</Box>
-			<Player
-				spotifyApi={spotifyApi}
-				deviceId={deviceId}
-				image={'/Justin-Bieber.png'}
-				title={'Peaches'}
-				artist={'Justin Bieber'}
-			/>
+			<Player spotifyApi={spotifyApi} />
 			<MobileNav />
 		</Router>
 	);
@@ -102,14 +93,14 @@ const ScreenRoot = ({ token, playlists, fetchUser, fetchPlaylist }) => {
 const mapDispatch = (dispatch) => {
 	return {
 		fetchUser: (data) => dispatch(fetchUser(data)),
-		fetchPlaylist: (data) => dispatch(fetchPlaylist(data))
+		fetchPlaylist: (data) => dispatch(fetchPlaylist(data)),
+		addDeviceId: (id) => dispatch(addDeviceId(id))
 	};
 };
 
 const mapState = (state) => {
 	return {
-		token: state.auth.token,
-		playlists: state.playlist.items
+		token: state.auth.token
 	};
 };
 

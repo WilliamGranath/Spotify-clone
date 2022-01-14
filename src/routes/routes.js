@@ -1,15 +1,26 @@
-import Library from "../components/Library/Library";
-import Playlist from "../components/Playlist/Playlist";
-
+import Library from '../components/Library/Library';
+import Playlist from '../components/Playlist/Playlist';
+import { Box } from '@mui/system';
 
 const NoMatch = () => {
 	return <div>404</div>;
 };
 
 const Home = () => {
-	return <div>Home</div>;
+	return (
+		<Box
+			sx={{
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center',
+				backgroundColor: '#1a1a1a',
+				height: '100vh'
+			}}
+		>
+			<Box sx={{ fontSize: 45 }}>This project is still under construction</Box>
+		</Box>
+	);
 };
-
 
 const Search = () => {
 	return <div>Search</div>;
