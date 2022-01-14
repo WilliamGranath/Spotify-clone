@@ -1,6 +1,6 @@
 import Library from '../components/Library/Library';
 import Playlist from '../components/Playlist/Playlist';
-import { Box } from '@mui/system';
+import { Box, padding } from '@mui/system';
 
 const NoMatch = () => {
 	return <div>404</div>;
@@ -17,7 +17,7 @@ const Home = () => {
 				height: '100vh'
 			}}
 		>
-			<Box sx={{ fontSize: 45 }}>This project is still under construction</Box>
+			<Box sx={{ fontSize: 30 }}>This project is still under construction</Box>
 		</Box>
 	);
 };
