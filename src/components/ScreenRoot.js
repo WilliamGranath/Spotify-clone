@@ -65,7 +65,7 @@ const ScreenRoot = ({ token, fetchUser, fetchPlaylist, addDeviceId }) => {
 		};
 
 		if (token) getData();
-	}, [token, fetchUser]);
+	}, [token, fetchUser, fetchPlaylist, addDeviceId]);
 
 	const LogedIn = () => (
 		<Router>

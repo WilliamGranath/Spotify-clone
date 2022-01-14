@@ -29,7 +29,7 @@ const Player = ({ spotifyApi, deviceId, pause, play, playing }) => {
 			setSongProgress(progress);
 		};
 		getStartSongInfo();
-	}, []);
+	}, [spotifyApi]);
 
 	const formatTime = (value) => {
 		const rest = (value % 60).toFixed(0);
@@ -231,3 +231,6 @@ const mapDispatch = (dispatch) => {
 };
 
 export default connect(mapState, mapDispatch)(Player);
+
+
+

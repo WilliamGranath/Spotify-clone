@@ -41,7 +41,7 @@ const Playlist = ({ spotifyApi }) => {
 			setSongs(allSongs.body.items);
 		};
 		getData();
-	}, [playlistId]);
+	}, [playlistId, spotifyApi]);
 
 	// api som använder playlistId
 	const renderSongRows = () => {
