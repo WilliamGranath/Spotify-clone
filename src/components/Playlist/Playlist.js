@@ -62,7 +62,7 @@ const Playlist = ({ spotifyApi }) => {
 			{/* Hero */}
 			<Grid container spacing={2} mb={6}>
 				<Grid item xs={12} lg={2}>
-					<img src={playlistInfo ? playlistInfo.image : ''} style={{ width: '100%' }} />
+					<img src={playlistInfo ? playlistInfo.image : ''} alt='playlist pics' style={{ width: '100%' }} />
 				</Grid>
 				<Grid
 					item
