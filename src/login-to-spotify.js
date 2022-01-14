@@ -2,7 +2,7 @@
 const authEndpoint = 'https://accounts.spotify.com/authorize';
 // Replace with your app's client ID, redirect URI and desired scopes
 const clientId = '5c6fee27ff8b49e8bf8b0be5bbdfa299';
-const redirectUri = 'https://spotifyclone-wille.netlify.app/';
+const redirectUri = 'https://spotifyclone-wille.netlify.app';
 const scopes = [
 	'user-read-currently-playing',
 	'user-read-recently-played',
