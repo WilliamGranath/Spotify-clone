@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 
 function PlaylistItem({ name, id, images }) {
 	const history = useHistory();
-	const smallImage = images[2].url;
+	const smallImage = images[2];
 	return (
 		<ListItem disablePadding>
 			<ListItemButton onClick={() => history.push(`/playlist/${id}`)}>
