@@ -1,25 +1,9 @@
-import Library from '../components/Library/Library';
+import Libary from '../components/Library/Library';
 import Playlist from '../components/Playlist/Playlist';
-import { Box } from '@mui/system';
+import Home from '../components/home/home';
 
 const NoMatch = () => {
 	return <div>404</div>;
-};
-
-const Home = () => {
-	return (
-		<Box
-			sx={{
-				display: 'flex',
-				justifyContent: 'center',
-				alignItems: 'center',
-				backgroundColor: '#1a1a1a',
-				height: '100vh'
-			}}
-		>
-			<Box sx={{ fontSize: 30 }}>This project is still under construction</Box>
-		</Box>
-	);
 };
 
 const Search = () => {
@@ -35,7 +19,7 @@ export const ROUTES = [
 	{
 		path: '/playlist',
 		exact: true,
-		component: Library
+		component: Libary
 	},
 	{
 		path: '/playlist/:playlistId',

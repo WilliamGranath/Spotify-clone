@@ -10,21 +10,13 @@ import {
 	TableCell,
 	TableBody
 } from '@mui/material';
+import { connect } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SongRow from '../SongRow/SongRow';
 
-/* const mockSongs = [
-	{ image: '/Justin-Bieber.png', title: 'Holy', artist: 'Justin Bieber', album: 'No clue', duration: 180 },
-	{ image: '/Justin-Bieber.png', title: 'Holy', artist: 'Justin Bieber', album: 'No clue', duration: 154 },
-	{ image: '/Justin-Bieber.png', title: 'Holy', artist: 'Justin Bieber', album: 'No clue', duration: 180 },
-	{ image: '/Justin-Bieber.png', title: 'Holy', artist: 'Justin Bieber', album: 'No clue', duration: 124 },
-	{ image: '/Justin-Bieber.png', title: 'Holy', artist: 'Justin Bieber', album: 'No clue', duration: 180 },
-	{ image: '/Justin-Bieber.png', title: 'Holy', artist: 'Justin Bieber', album: 'No clue', duration: 180 }
-]; */
-
-const Playlist = ({ spotifyApi }) => {
+const Playlist = ({ spotifyApi, loading }) => {
 	const { playlistId } = useParams();
 	const [playlistInfo, setPlaylistInfo] = useState();
 	const [songs, setSongs] = useState([]);
@@ -45,7 +37,7 @@ const Playlist = ({ spotifyApi }) => {
 
 	// api som använder playlistId
 	const renderSongRows = () => {
-		if (!songs) return [1, 2, 3, 4, 5, 6].map((e, i) => <SongRow loading={true} key={i} />);
+		if (loading) return [1, 2, 3, 4, 5, 6].map((e, i) => <SongRow loading={true} key={i} index={i} />);
 		return songs.map((song, i) => (
 			<SongRow spotifyApi={spotifyApi} playlistId={playlistId} {...song} key={i} index={i} />
 		));
@@ -62,7 +54,7 @@ const Playlist = ({ spotifyApi }) => {
 			{/* Hero */}
 			<Grid container spacing={2} mb={6}>
 				<Grid item xs={12} lg={2}>
-					<img src={playlistInfo ? playlistInfo.image : ''} alt='playlist pics' style={{ width: '100%' }} />
+					<img src={playlistInfo ? playlistInfo.image : ''} alt="playlist pics" style={{ width: '100%' }} />
 				</Grid>
 				<Grid
 					item
@@ -111,4 +103,11 @@ const Playlist = ({ spotifyApi }) => {
 		</Box>
 	);
 };
-export default Playlist;
+
+const mapState = (state) => {
+	return {
+		loading: state.playlist.loading
+	};
+};
+
+export default connect(mapState)(Playlist);
