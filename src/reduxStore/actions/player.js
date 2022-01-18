@@ -58,9 +58,12 @@ export const updateSongInfo = (spotifyApi) => {
 };
 
 export const updateSongInfoStart = (spotifyApi) => {
-	return async (dispatch) => {
+	return async (dispatch, getState) => {
 		dispatch(updatePlayerStart());
 		try {
+			const state = getState();
+			const { token } = state.auth;
+			await spotifyApi.setAccessToken(token);
 			const recentlyPlayedSongs = await spotifyApi.getMyRecentlyPlayedTracks({ limit: 1 });
 			const item = recentlyPlayedSongs.body.items[0].track;
 			const duration = item.duration_ms / 1000;

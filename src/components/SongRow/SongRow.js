@@ -69,7 +69,6 @@ const SongRow = ({ spotifyApi, playlistId, track, index, loading, playNewSong })
 		playNewSong(spotifyApi, song);
 	};
 
-	
 	return (
 		<TableRow key={index} sx={rowStyle} onClick={() => onRowClick()} hover={true}>
 			<TableCell>{index + 1}</TableCell>

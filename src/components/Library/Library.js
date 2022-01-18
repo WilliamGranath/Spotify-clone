@@ -4,9 +4,9 @@ import List from '@mui/material/List';
 import PlaylistItem from '../PlaylistItem/PlaylistItem';
 import { connect } from 'react-redux';
 
-function Library({ playlists }) {
+function Library({ playlists, loading }) {
 	const renderPlaylistItems = () => {
-		if (!playlists) return 'Loading';
+		if (loading) return [1, 2, 3, 4, 5, 6].map((e, i) => <PlaylistItem key={i} loading={true} />);
 		return playlists.map((playlist, i) => <PlaylistItem {...playlist} key={i} />);
 	};
 
@@ -24,7 +24,10 @@ function Library({ playlists }) {
 }
 
 const mapState = (state) => {
-	return { playlists: state.playlist.items };
+	return {
+		playlists: state.playlist.items,
+		loading: state.playlist.loading
+	};
 };
 
 export default connect(mapState)(Library);
