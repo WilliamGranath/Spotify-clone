@@ -7,7 +7,6 @@ import { mainTheme } from './style/material-themes';
 import configureStore from './reduxStore/configureStore';
 import { Provider } from 'react-redux';
 
-
 const store = configureStore();
 
 ReactDOM.render(
