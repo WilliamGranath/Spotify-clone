@@ -63,17 +63,16 @@ const SongProgress = ({ progress, duration, setProgress, playing, spotifyApi }) 
 		});
 	};
 
-    // 4. Store the value of our memoized function in a function/variable called progressSong
-	const progressSong = useMemo(debouncedApiCall, [apiCall]);
+	// 4. Store the value of our memoized function in a function/variable called progressSong
+	const progressSong = useMemo(debouncedApiCall, []);
 
 	const handleOnChange = (e, v) => {
 		console.log(v, 'no debounce');
 		setProgress(v);
 
-        // 5. Call the memoized function that in turn uses a debounced version of apiCall();
+		// 5. Call the memoized function that in turn uses a debounced version of apiCall();
 		progressSong(v);
 	};
-    
 
 	return (
 		<Stack spacing={2} direction="row" alignItems="center">
@@ -88,8 +87,7 @@ const SongProgress = ({ progress, duration, setProgress, playing, spotifyApi }) 
 				value={progress}
 				aria-label="Default"
 				valueLabelDisplay="auto"
-				onChange={(e, v) => setProgress(v)}
-				onChangeCommitted={handleOnChange}
+				onChange={handleOnChange}
 			/>
 			<Typography variant="body1" sx={{ color: 'text.secondary' }}>
 				{formatTime(duration)}
