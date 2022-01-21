@@ -57,6 +57,7 @@ const SongProgress = ({ progress, duration, setProgress, playing, spotifyApi }) 
 	// 2. Create a callback function that we will send to useMemo();
 	const debouncedApiCall = (v) => {
 		// 3. Return a debounced version of apiCall()
+		
 		return debounce(apiCall, 1000, {
 			leading: false,
 			trailing: true
@@ -67,11 +68,11 @@ const SongProgress = ({ progress, duration, setProgress, playing, spotifyApi }) 
 	const progressSong = useMemo(debouncedApiCall, []);
 
 	const handleOnChange = (e, v) => {
-		console.log(v, 'no debounce');
 		setProgress(v);
 
 		// 5. Call the memoized function that in turn uses a debounced version of apiCall();
 		progressSong(v);
+		console.log(v);
 	};
 
 	return (

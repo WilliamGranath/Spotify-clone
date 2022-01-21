@@ -5,7 +5,7 @@ import PauseIcon from '@mui/icons-material/Pause';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import { connect } from 'react-redux';
-import { pause, updateSongInfoStart, playNewSong } from '../../reduxStore/actions/index';
+import { pause, updateSongInfoStart, playNewSong, setProgress } from '../../reduxStore/actions/index';
 import VolumeController from '../VolumeController/VolumeController';
 import SongProgress from '../SongProgress/SongProgress';
 
@@ -27,6 +27,7 @@ const Player = ({
 
 	const togglePlay = async () => {
 		if (loading) return;
+
 		if (!playing) {
 			try {
 				await spotifyApi.transferMyPlayback([deviceId]);
@@ -40,31 +41,32 @@ const Player = ({
 		}
 	};
 
-	const handeOnSkipNext = async () => {
-		if (loading) return;
-		await spotifyApi.skipToNext();
-		playNewSong(spotifyApi);
-	};
-
 	const handeOnSkipPrev = async () => {
 		if (loading) return;
 		await spotifyApi.skipToPrevious();
 		playNewSong(spotifyApi);
 	};
 
-	const boxStyle = {
-		bgcolor: 'background.paper',
-		height: 90,
-		width: '100%',
-		position: 'fixed',
-		bottom: { xs: 56, md: 0 },
-		left: 0,
-		right: 0,
-		boxSizing: 'border-box'
+	const handleOnSkipNext = async () => {
+		if (loading) return;
+		await spotifyApi.skipToNext();
+		playNewSong(spotifyApi);
 	};
 
 	return (
-		<Box p={1} sx={boxStyle}>
+		<Box
+			p={1}
+			sx={{
+				bgcolor: 'background.paper',
+				height: 90,
+				width: '100%',
+				position: 'fixed',
+				bottom: { xs: 56, md: 0 },
+				left: 0,
+				right: 0,
+				boxSizing: 'border-box'
+			}}
+		>
 			<Grid container spacing={2}>
 				<Grid item xs={4} md={3} sx={{ display: 'flex', alignItems: 'center' }}>
 					<Stack direction="row" spacing={4}>
@@ -93,7 +95,7 @@ const Player = ({
 							<IconButton size="small" sx={{ color: 'white' }} onClick={togglePlay}>
 								{playing ? <PauseIcon fontSize="large" /> : <PlayArrowIcon fontSize="large" />}
 							</IconButton>
-							<IconButton size="small" sx={{ color: 'white' }} onClick={handeOnSkipNext}>
+							<IconButton size="small" sx={{ color: 'white' }} onClick={handleOnSkipNext}>
 								<SkipNextIcon />
 							</IconButton>
 						</Stack>
@@ -114,13 +116,15 @@ const Player = ({
 };
 
 const mapState = (state) => {
-	const { title, image, artist, device_id, playing, loading } = state.player;
+	const { title, image, artist, duration, progress, device_id, playing, loading } = state.player;
 	return {
 		deviceId: device_id,
 		playing,
 		title,
 		image,
 		artist,
+		duration,
+		progress,
 		loading
 	};
 };
@@ -128,8 +132,9 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
 	return {
 		pause: () => dispatch(pause()),
-		updateSongInfoStart: (spotifyApi) => dispatch(updateSongInfoStart(spotifyApi)),
-		playNewSong: (spotifyApi) => dispatch(playNewSong(spotifyApi)),
+		updateSongInfoStart: (api) => dispatch(updateSongInfoStart(api)),
+		playNewSong: (api) => dispatch(playNewSong(api)),
+		setProgress: (progress) => dispatch(setProgress(progress))
 	};
 };
 

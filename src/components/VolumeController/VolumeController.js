@@ -1,37 +1,41 @@
 import { Box, Stack, Slider } from '@mui/material';
-import { VolumeDown, VolumeUp } from '@mui/icons-material';
+import { VolumeDown, VolumeUp, VolumeOff } from '@mui/icons-material';
 import { useState, useMemo, useEffect } from 'react';
 import debounce from 'lodash.debounce';
-import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 
 const VolumeController = ({ spotifyApi }) => {
-	const defaultVolume = 50;
+	const defaultVolume = 40;
 	const [volume, setVolume] = useState(defaultVolume);
 
-	const handleVolumeChange = async (e, v) => {
-		setVolume(v);
-		debauncedApiCall(v);
+	const apiCall = (v) => {
+		spotifyApi.setVolume(v);
 	};
 
-	const debauncedApiCall = useMemo(
-		(v) =>
-			debounce(async (v) => {
-				await spotifyApi.setVolume(v);
-			}, 1000),
-		[spotifyApi]
-	);
+	const debouncedApiCall = (v) => {
+		return debounce(apiCall, 1000, {
+			leading: false,
+			trailing: true
+		});
+	};
+
+	const handleVolumeChange = (e, v) => {
+		setVolume(v);
+		changeVolume(v);
+	};
+
+	const changeVolume = useMemo(debouncedApiCall, []);
 
 	useEffect(() => {
 		spotifyApi.setVolume(defaultVolume);
 		return () => {
-			debauncedApiCall.cancel();
+			changeVolume.cancel();
 		};
-	}, [debauncedApiCall, spotifyApi]);
+	}, [changeVolume, spotifyApi]);
 
 	return (
 		<Box sx={{ width: 200 }}>
 			<Stack spacing={2} direction="row" alignItems="center">
-				{volume === 0 ? <VolumeOffIcon /> : <VolumeDown />}
+				{volume === 0 ? <VolumeOff /> : <VolumeDown />}
 				<Slider min={0} max={100} step={1} aria-label="Volume" value={volume} onChange={handleVolumeChange} />
 				<VolumeUp />
 			</Stack>

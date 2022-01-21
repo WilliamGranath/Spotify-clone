@@ -11,13 +11,27 @@ import SearchIcon from '@mui/icons-material/Search';
 import SideNavOption from '../SideNavOption/SideNavOption';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Skeleton from '@mui/material/Skeleton';
 
+// playlists = [{},{}]
 function SideNav({ items, loading }) {
 	const history = useHistory();
 
 	const renderPlaylists = () => {
 		// Make sure laoding state works
-		if (loading) return 'Loading';
+		if (loading)
+			return (
+				<Box sx={{ width: '80%', marginLeft: '15px' }}>
+					<Skeleton sx={{ marginTop: '10px' }} />
+					<Skeleton sx={{ marginTop: '10px' }} />
+					<Skeleton sx={{ marginTop: '10px' }} />
+					<Skeleton sx={{ marginTop: '10px' }} />
+					<Skeleton sx={{ marginTop: '10px' }} />
+					<Skeleton sx={{ marginTop: '10px' }} />
+					<Skeleton sx={{ marginTop: '10px' }} />
+					<Skeleton sx={{ marginTop: '10px' }} />
+				</Box>
+			);
 		return items.map((playlist, i) => <SideNavOption {...playlist} key={i} />);
 	};
 
@@ -27,20 +41,29 @@ function SideNav({ items, loading }) {
 			sx={{
 				position: { xs: 'unset', md: 'fixed' },
 				display: { xs: 'none', md: 'block' },
-				background: 'black',
+				bgcolor: 'background.press',
 				height: '100vh',
-				width: 240,
+				width: '240px',
 				top: 0,
 				left: 0
 			}}
 		>
-			<img style={{ marginLeft: 16, marginTop: 24 }} src="/Spotify_Logo.png" width={130} alt="Spotify" />
-			<Box sx={{ width: '100%', maxWidth: 360, color: 'white' }}>
+			<img
+				style={{ marginLeft: 16, marginTop: 24, cursor: 'pointer' }}
+				alt="a"
+				src="/Spotify_Logo.png"
+				width={130}
+				onClick={() => history.push('/')}
+			/>
+			<Box sx={{ width: '100%', maxWidth: 360 }}>
 				<List>
-					<ListItem disablePadding>
+					<ListItem
+						disablePadding
+						sx={[{ color: 'text.secondary' }, { '&:hover': { color: 'text.primary' } }]}
+					>
 						<ListItemButton onClick={() => history.push('/')}>
 							<ListItemIcon>
-								<HomeIcon sx={{ color: 'white' }} />
+								<HomeIcon sx={{ color: 'text.secondary' }} />
 							</ListItemIcon>
 							<ListItemText primary="Home" />
 						</ListItemButton>
@@ -48,13 +71,16 @@ function SideNav({ items, loading }) {
 					<ListItem disablePadding>
 						<ListItemButton onClick={() => history.push('/search')}>
 							<ListItemIcon>
-								<SearchIcon sx={{ color: 'white' }} />
+								<SearchIcon sx={{ color: 'text.primary' }} />
 							</ListItemIcon>
-							<ListItemText primary="Search" />
+							<ListItemText
+								primary="Search"
+								sx={[{ color: 'text.secondary' }, { '&:hover': { color: 'text.primary' } }]}
+							/>
 						</ListItemButton>
 					</ListItem>
 				</List>
-				<Divider sx={{ color: 'white', bgcolor: 'white' }} variant="middle" />
+				<Divider style={{ background: 'white' }} variant="middle" />
 				<List>{renderPlaylists()}</List>
 			</Box>
 		</Box>
@@ -63,10 +89,7 @@ function SideNav({ items, loading }) {
 
 const mapState = (state) => {
 	const { items, loading } = state.playlist;
-	return {
-		items,
-		loading
-	};
+	return { items, loading };
 };
 
 export default connect(mapState)(SideNav);

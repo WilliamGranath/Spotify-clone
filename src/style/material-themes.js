@@ -35,6 +35,8 @@ export const mainTheme = createTheme({
 	palette: {
 		background: {
 			paper: backgrounds.base,
+			press: backgrounds.press,
+			elevatedHighlight: backgrounds.elevatedHighlight,
 			default: '#fff'
 		},
 

@@ -1,9 +1,5 @@
 import * as actionTypes from './actionTypes';
 
-export const addDevice = (device_id) => {
-	return { type: actionTypes.ADD_DEVICE_ID, payload: device_id };
-};
-
 export const play = () => {
 	return { type: actionTypes.PLAY };
 };
@@ -16,6 +12,10 @@ export const setProgress = (progress) => {
 	return { type: actionTypes.SET_PROGRESS, payload: progress };
 };
 
+export const addDevice = (device_id) => {
+	return { type: actionTypes.ADD_DEVICE_ID, payload: device_id };
+};
+
 export const updatePlayerStart = () => {
 	return { type: actionTypes.UPDATE_PLAYER_START };
 };
@@ -24,11 +24,8 @@ export const updatePlayerFail = (error) => {
 	return { type: actionTypes.UPDATE_PLAYER_FAIL, payload: error };
 };
 
-export const updatePlayerSuccess = (data) => {
-	return {
-		type: actionTypes.UPDATE_PLAYER_SUCCESS,
-		payload: data
-	};
+export const updatePlayerSuccess = (payload) => {
+	return { type: actionTypes.UPDATE_PLAYER_SUCCESS, payload: payload };
 };
 
 export const playNewSong = (spotifyApi, song = {}) => {
@@ -64,8 +61,8 @@ export const updateSongInfoStart = (spotifyApi) => {
 			const state = getState();
 			const { token } = state.auth;
 			await spotifyApi.setAccessToken(token);
-			const recentlyPlayedSongs = await spotifyApi.getMyRecentlyPlayedTracks({ limit: 1 });
-			const item = recentlyPlayedSongs.body.items[0].track;
+			const song = await spotifyApi.getMyRecentlyPlayedTracks({ limit: 1 });
+			const item = song.body.items[0].track;
 			const duration = item.duration_ms / 1000;
 			const data = {
 				title: item.name,
