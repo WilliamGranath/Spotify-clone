@@ -1,4 +1,4 @@
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography, Link } from '@mui/material';
 
 const style = {
 	top: 0,
@@ -9,23 +9,6 @@ const style = {
 };
 
 const Home = () => {
-	const link = {
-		color: '#1ed760',
-		textDecoration: 'none'
-	};
-	const portfolioLink = {
-		width: '50%',
-		fontSize: 14,
-		color: 'white',
-		backgroundColor: 'background.elevatedHighlight',
-		textAlign: 'center',
-		padding: '10px',
-		paddingTop: '10px',
-		paddingBottom: '10px',
-		borderRadius: '14px',
-		boxShadow: '0px 0px 25px 10px rgba(0,0,0,0.5)',
-		marginBottom: { md: '20px', sm: '10px' }
-	};
 	const textCard = {
 		fontSize: 18,
 		color: 'white',
@@ -75,61 +58,55 @@ const Home = () => {
 						/>
 					</Box>
 					<Box sx={textCard}>
-						<span style={{ margin: 0, marginBottom: '10px' }}>
+						<Typography style={{ margin: 0, marginBottom: '10px' }}>
 							This app was created using{' '}
-							<a
-								style={link}
+							<Link
 								href="https://reactjs.org/docs/getting-started.html"
 								alt=""
 								rel="noopener noreferrer"
 								target={'_blank'}
 							>
 								React
-							</a>{' '}
+							</Link>{' '}
 							and{' '}
-							<a
-								style={link}
+							<Link
 								href="https://redux.js.org/api/api-reference"
 								alt=""
 								rel="noopener noreferrer"
 								target={'_blank'}
 							>
 								Redux
-							</a>
-							. I've been using
-							<a
-								style={link}
+							</Link>
+							. I've been using{' '}
+							<Link
 								href="https://developer.spotify.com/documentation/general/guides/"
 								alt=""
 								rel="noopener noreferrer"
 								target={'_blank'}
 							>
-								{' '}
 								Spotify's API
-							</a>{' '}
+							</Link>{' '}
 							to connect you securely with this app. <br />
 							Styled with{' '}
-							<a
-								style={link}
+							<Link
 								href="https://mui.com/getting-started/installation/"
 								alt=""
 								rel="noopener noreferrer"
 								target={'_blank'}
 							>
 								material UI <br />
-							</a>
+							</Link>
 							<br />
 							Created by{' '}
-							<a
-								style={link}
+							<Link
 								href="https://mui.com/getting-started/installation/"
 								alt=""
 								rel="noopener noreferrer"
 								target={'_blank'}
 							>
 								William Granath
-							</a>
-						</span>
+							</Link>
+						</Typography>
 					</Box>
 				</Grid>
 			</Grid>

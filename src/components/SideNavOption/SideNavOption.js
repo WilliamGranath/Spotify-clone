@@ -1,22 +1,23 @@
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { ListItemIcon, ListItem, ListItemButton, ListItemText } from '@mui/material';
 
-function SideNavOption({ name, id }) {
-	const [isActive, setIsActive] = useState(false);
-
+function SideNavOption({ name, Icon, to }) {
 	return (
 		<ListItem disablePadding>
 			<ListItemButton
 				component={NavLink}
-				to={`/playlist/${id}`}
-				isActive={(match) => {
-					setIsActive(!!match && match.isExact);
+				to={to}
+				isActive={(match) => !!match && match.isExact}
+				activeStyle={{
+					color: '#1db954'
 				}}
 			>
-				<ListItemText primary={name} sx={{ color: isActive ? 'primary.main' : 'text.secondary' }} />
+				{Icon && (
+					<ListItemIcon>
+						<Icon sx={{ color: 'white' }} />
+					</ListItemIcon>
+				)}
+				<ListItemText primary={name} sx={{ color: 'inherit' }} />
 			</ListItemButton>
 		</ListItem>
 	);

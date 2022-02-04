@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { useEffect } from 'react';
-import SpotifyWebApi from 'spotify-web-api-node';
 import { connect } from 'react-redux';
 import { ROUTES } from '../routes/routes';
 import SideNav from './SideNav/SideNav';
@@ -10,9 +9,7 @@ import Player from './Player/Player';
 import Login from './Login/Login';
 import { fetchUser, fetchPlaylist, addDevice } from '../reduxStore/actions/index';
 
-const spotifyApi = new SpotifyWebApi();
-
-const setupSpotifyConnect = (token, addDevice) => {
+const setupSpotifyConnect = (token, addDevice, spotifyApi) => {
 	const player = new window.Spotify.Player({
 		name: 'Web Playback SDK Quick Start Player',
 		getOAuthToken: (cb) => {
@@ -23,7 +20,6 @@ const setupSpotifyConnect = (token, addDevice) => {
 
 	// Ready
 	player.addListener('ready', ({ device_id }) => {
-		console.log('Ready with Device ID', device_id);
 		addDevice(device_id);
 		spotifyApi.transferMyPlayback([device_id]);
 	});
@@ -48,24 +44,21 @@ const setupSpotifyConnect = (token, addDevice) => {
 	player.connect();
 };
 
-const ScreenRoot = ({ token, fetchUser, fetchPlaylist, addDevice }) => {
+const ScreenRoot = ({ spotifyApi, token, fetchUser, fetchPlaylist, addDevice }) => {
 	useEffect(() => {
-		// Set up spotify:
-		spotifyApi.setAccessToken(token);
-
-		window.onSpotifyWebPlaybackSDKReady = () => {
-			setupSpotifyConnect(token, addDevice);
-		};
-
 		const getData = async () => {
 			fetchUser(spotifyApi);
 			fetchPlaylist(spotifyApi);
 			const devices = await spotifyApi.getMyDevices();
 			console.log(devices.body);
 		};
-
-		if (token) getData();
-	}, [token, fetchUser, fetchPlaylist, addDevice]);
+		if (token) {
+			window.onSpotifyWebPlaybackSDKReady = () => {
+				setupSpotifyConnect(token, addDevice, spotifyApi);
+			};
+			getData();
+		}
+	}, [token, fetchUser, addDevice, fetchPlaylist, spotifyApi]);
 
 	const LogedIn = () => (
 		<Router>
@@ -94,7 +87,7 @@ const mapDispatch = (dispatch) => {
 	return {
 		fetchUser: (data) => dispatch(fetchUser(data)),
 		fetchPlaylist: (data) => dispatch(fetchPlaylist(data)),
-		addDevice: (id) => dispatch(addDevice(id))
+		addDevice: (device_id) => dispatch(addDevice(device_id))
 	};
 };
 

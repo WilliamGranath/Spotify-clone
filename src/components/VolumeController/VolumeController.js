@@ -26,7 +26,6 @@ const VolumeController = ({ spotifyApi }) => {
 	const changeVolume = useMemo(debouncedApiCall, []);
 
 	useEffect(() => {
-		spotifyApi.setVolume(defaultVolume);
 		return () => {
 			changeVolume.cancel();
 		};
